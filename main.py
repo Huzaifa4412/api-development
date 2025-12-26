@@ -100,8 +100,9 @@ def update_todo(todo_id: str, todo: TodoUpdate):
 
     existing = todos_db[todo_id]
     update_data = todo.model_dump(exclude_unset=True)
+    update_data["updated_at"] = datetime.now()
 
-    updated_todo = existing.model_copy(update=update_data, update={"updated_at": datetime.now()})
+    updated_todo = existing.model_copy(update=update_data)
     todos_db[todo_id] = updated_todo
     return updated_todo
 
